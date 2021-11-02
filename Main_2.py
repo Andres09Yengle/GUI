@@ -1,3 +1,9 @@
+'''
+Andres Yengle
+11-2
+Guis
+
+'''
 
 from tkinter import *
 import random
