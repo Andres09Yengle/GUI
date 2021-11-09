@@ -11,7 +11,7 @@ from PIL import Image
 from tkinter import ttk
 from tkinter import filedialog as fd
 from tkinter import messagebox
-
+from PIL import ImageDraw
 root=Tk()
 
 
@@ -93,9 +93,20 @@ def My_image():
                 green = random.randint(green_slider_val_min, green_slider_val_max)
                 blue = random.randint(blue_slider_val_min, blue_slider_val_max)
                 px[i, j] = (red, green, blue)
+    if add_text_button_val == 1:
+        draw = ImageDraw.Draw(my_image)
+        draw.text((10, 10), 'Goof')
 
-        my_image.show()
+    my_image.show()
 
+
+
+#add text stuff
+add_text_label = Label(root, text='If you would like to add the word "goof" please click here', font=('calibra', 10, 'bold'))
+add_text_label.grid(row=4, column=0)
+var1 = IntVar()
+add_text_button = Button(root, text='Goof', command=Add_text)
+add_text_button.grid(row=4, column=1)
 
 #button
 
