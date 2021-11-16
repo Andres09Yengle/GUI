@@ -9,17 +9,16 @@ from tkinter import *
 import random
 from PIL import Image
 from tkinter import ttk
-from tkinter import filedialog as fd
 from tkinter import messagebox
 from PIL import ImageDraw
-from PIL import ImageFont
+import modules_for_advanced_GUI
 
 root = Tk()
 
 # tkinter window
 root.geometry("400x400")
 
-
+'''
 # image grab
 def select_files():
     global my_image
@@ -28,20 +27,33 @@ def select_files():
     filename = fd.askopenfilename(title='Open files', initialdir='/', filetypes=filetypes)
     my_image = Image.open(filename)
     loop_img(my_image)
+'''
+def catch():
+    print("catch")
+    global filename
+    filename = modules_for_advanced_GUI.select_files()
 
+def new_filename():
+    newfilename = modules_for_advanced_GUI.new_file()
+    messagebox.showinfo("information", newfilename)
 
 # add the parameter my_image to your function
 def loop_img():
     global size
+    global im_resized
     my_image = Image.open(filename)
     im_resized = my_image.resize(size, Image.ANTIALIAS)
-    im_resized.show()
-
+    #im_resized.show()
+    #return im_resized
 
 
 # open button
-open_button = ttk.Button(root, text='Open Files', command=select_files)
+open_button = ttk.Button(root, text='Open Files', command=catch)
 open_button.grid(row=0, column=2)
+
+
+img_size_button = Button(root, text='filename', command= new_filename)
+img_size_button.grid(row=6,column=0)
 
 
 res = ttk.Button(root, text='Change resolution', command=loop_img)
@@ -107,11 +119,11 @@ def My_image():
         skip_pixels = spin_2.get()
         skip_pixels_int = int(skip_pixels)
 
-        rows = my_image.size[0]
-        cols = my_image.size[1]
+        rows = im_resized.size[0]
+        cols = im_resized.size[1]
         print(rows, cols)
 
-        px = my_image.load()
+        px = im_resized.load()
         for i in range(0, rows):
 
             start = random.randint(0, rows)
@@ -137,9 +149,9 @@ def My_image():
                 blue = random.randint(blue_slider_val_min, blue_slider_val_max)
                 px[i, j] = (red, green, blue)
 
-    my_image.show()
+    im_resized.show()
 def add_text():
-    draw = ImageDraw.Draw(my_image)
+    draw = ImageDraw.Draw(im_resized)
     draw.text((10, 10), 'GOOF')
 
 
